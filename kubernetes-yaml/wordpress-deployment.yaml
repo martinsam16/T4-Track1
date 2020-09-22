@@ -7,6 +7,7 @@ metadata:
 spec:
   ports:
     - port: 80
+    - port: 8080
   selector:
     app: wordpress
     tier: frontend
@@ -45,6 +46,11 @@ spec:
         tier: frontend
     spec:
       containers:
+      - name: prometheus-spring-actuator
+        image: stevenacoffman/prometheus-spring-actuator:0.0.1-SNAPSHOT
+        ports:
+        - containerPort: 8080
+
       - image: wordpress:4.8-apache
         name: wordpress
         env:
