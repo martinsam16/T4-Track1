@@ -5,7 +5,7 @@ metadata:
   labels:
     app: wordpress
 spec:
-  externalTrafficPolicy: Local
+  #externalTrafficPolicy: Local
   type: LoadBalancer
   selector:
     app: wordpress
