@@ -6,11 +6,13 @@ metadata:
     app: wordpress
 spec:
   ports:
-    - port: 80
+  - protocol: TCP
+    port: 80
+    targetPort: 80
   selector:
     app: wordpress
     tier: frontend
-  type: LoadBalancer
+  type: NodePort
 ---
 apiVersion: v1
 kind: Service
@@ -20,7 +22,7 @@ metadata:
     app: wordpress
 spec:
   ports:
-    - port: 3001
+    - port: 8080
   selector:
     app: wordpress
     tier: frontend
