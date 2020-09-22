@@ -1,22 +1,30 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: wordpress
   labels:
     app: wordpress
 spec:
-  #externalTrafficPolicy: Local
-  type: LoadBalancer
+  ports:
+    - port: 80
   selector:
     app: wordpress
     tier: frontend
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: actuator-sb
+  labels:
+    app: wordpress
+spec:
   ports:
-    - name: wp
-      port: 80
-      targetPort: http
-    - name: sb
-      port: 8080
-      targetPort: http
+    - port: 8080
+  selector:
+    app: wordpress
+    tier: frontend
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -55,7 +63,6 @@ spec:
         image: stevenacoffman/prometheus-spring-actuator:0.0.1-SNAPSHOT
         ports:
         - containerPort: 8080
-
       - image: wordpress:4.8-apache
         name: wordpress
         env:
