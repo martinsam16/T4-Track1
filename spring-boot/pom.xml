@@ -11,7 +11,7 @@
     <groupId>com.martinsaman</groupId>
     <artifactId>tarea</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tarea</name>
+    <name>microservice-actuator</name>
     <description>Tarea del taller de microservicios</description>
 
     <properties>

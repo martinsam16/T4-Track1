@@ -6,11 +6,13 @@ metadata:
     app: wordpress
 spec:
   ports:
-    - port: 80
+  - protocol: TCP
+    port: 80
+    targetPort: 80
   selector:
     app: wordpress
     tier: frontend
-  type: LoadBalancer
+  type: NodePort
 ---
 apiVersion: v1
 kind: Service
@@ -59,10 +61,10 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: prometheus-spring-actuator
-        image: stevenacoffman/prometheus-spring-actuator:0.0.1-SNAPSHOT
+      - name: actuator
+        image: malditoidealismo/actuator
         ports:
-        - containerPort: 8080
+        - containerPort: 3001
       - image: wordpress:4.8-apache
         name: wordpress
         env:
