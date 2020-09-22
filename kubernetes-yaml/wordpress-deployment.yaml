@@ -1,17 +1,22 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: wordpress
   labels:
     app: wordpress
 spec:
-  ports:
-    - port: 80
-    - port: 8080
+  externalTrafficPolicy: Local
+  type: LoadBalancer
   selector:
     app: wordpress
     tier: frontend
-  type: LoadBalancer
+  ports:
+    - name: wp
+      port: 80
+      targetPort: http
+    - name: sb
+      port: 8080
+      targetPort: http
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
